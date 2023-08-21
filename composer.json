@@ -1,6 +1,8 @@
 {
     "name": "fieroo/pages",
-    "type": "composer-plugin",
+    "description": "Fieroo Pages",
+    "type": "library",
+    "license": "EULA",
     "autoload": {
         "psr-4": {
             "Fieroo\\Pages\\": "src/"
@@ -11,5 +13,12 @@
             "name": "Francesco Passanante",
             "email": "francescopassanante@gmail.com"
         }
-    ]
+    ],
+    "extra": {
+        "laravel": {
+            "providers": [
+                "Fieroo\\Pages\\Providers\\PagesProvider"
+            ]
+        }
+    }
 }
