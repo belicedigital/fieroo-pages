@@ -1,0 +1,15 @@
+{
+    "name": "fieroo/pages",
+    "type": "composer-plugin",
+    "autoload": {
+        "psr-4": {
+            "Fieroo\\Pages\\": "src/"
+        }
+    },
+    "authors": [
+        {
+            "name": "Francesco Passanante",
+            "email": "francescopassanante@gmail.com"
+        }
+    ]
+}
