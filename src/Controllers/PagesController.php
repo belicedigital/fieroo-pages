@@ -5,22 +5,12 @@ namespace Fieroo\Pages\Controllers;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Fieroo\Pages\Models\Page;
+use Fieroo\Pages\Models\PageTranslation;
 use Illuminate\Support\Str;
 use Validator;
-use DB;
 
 class PagesController extends Controller
 {
-    /**
-     * Create a new controller instance.
-     *
-     * @return void
-     */
-    // public function __construct()
-    // {
-    //     $this->middleware('auth');
-    // }
-
     /**
      * Display a listing of the resource.
      *
@@ -28,16 +18,8 @@ class PagesController extends Controller
      */
     public function index()
     {
-        $all_pages = DB::table('pages_translations')->get();
-        $it_pages = [];
-        $en_pages = [];
-        foreach($all_pages as $page) {
-            if($page->locale === 'it') {
-                array_push($it_pages, $page);
-            } else {
-                array_push($en_pages, $page);
-            }
-        }
+        $it_pages = PageTranslation::where('locale','it')->get();
+        $en_pages = PageTranslation::where('locale','en')->get();
         return view('pages::index', ['it_pages' => $it_pages, 'en_pages' => $en_pages]);
     }
 
@@ -74,25 +56,22 @@ class PagesController extends Controller
 
         try {
             $page = Page::create();
-
-            $page_translations = DB::table('pages_translations')->insert([
+            $page->translations()->createMany([
                 [
-                    'page_id' => $page->id,
                     'locale' => 'it',
                     'title' => $request->title,
                     'slug' => Str::slug($request->title,'-'),
                     'description' => $request->description,
                     'content' => $request->content,
-                    'is_published' => $request->is_published ? true : false
+                    'is_published' => $request->is_published ? true : false,
                 ],
                 [
-                    'page_id' => $page->id,
                     'locale' => 'en',
                     'title' => $request->title_en,
                     'slug' => Str::slug($request->title_en,'-'),
                     'description' => $request->description_en,
                     'content' => $request->content_en,
-                    'is_published' => $request->is_published_en ? true : false
+                    'is_published' => $request->is_published_en ? true : false,
                 ]
             ]);
 
@@ -126,10 +105,7 @@ class PagesController extends Controller
      */
     public function edit($id)
     {
-        $page = DB::table('pages_translations')->where('id', '=', $id)->first();
-        if(is_null($page) || !is_object($page)) {
-            abort(404);
-        }
+        $page = PageTranslation::findOrFail($id);
         return view('pages::edit', ['page' => $page]);
     }
 
@@ -156,28 +132,32 @@ class PagesController extends Controller
         }
 
         try {
-            $page_old = DB::table('pages_translations')->where('id', '=', $id)->first();
+            $page_old = PageTranslation::findOrFail($id);
 
-            $new_dom  = new \DOMDocument();
-            $new_dom->loadHTML($request->content);
-            $new_dom->preserveWhiteSpace = false;
-            $new_imgs = [];
-            foreach($new_dom->getElementsByTagName('img') as $image) {
-                $src = $image->getAttribute('src');
-                array_push($new_imgs, $src);
-            }
-
-            $old_dom  = new \DOMDocument();
-            $old_dom->loadHTML($page_old->content);
-            $old_dom->preserveWhiteSpace = false;
-            foreach($old_dom->getElementsByTagName('img') as $image) {
-                $src = $image->getAttribute('src');
-                if(!in_array($src, $new_imgs) && file_exists(public_path($src))) {
-                    unlink(public_path($src));
+            if(strlen($request->content) > 0) {
+                $new_dom  = new \DOMDocument();
+                $new_dom->loadHTML($request->content);
+                $new_dom->preserveWhiteSpace = false;
+                $new_imgs = [];
+                foreach($new_dom->getElementsByTagName('img') as $image) {
+                    $src = $image->getAttribute('src');
+                    array_push($new_imgs, $src);
                 }
             }
 
-            $page_translations = DB::table('pages_translations')->where('id', '=', $id)->update([
+            if(strlen($page_old->content) > 0) {
+                $old_dom  = new \DOMDocument();
+                $old_dom->loadHTML($page_old->content);
+                $old_dom->preserveWhiteSpace = false;
+                foreach($old_dom->getElementsByTagName('img') as $image) {
+                    $src = $image->getAttribute('src');
+                    if(!in_array($src, $new_imgs) && file_exists(public_path($src))) {
+                        unlink(public_path($src));
+                    }
+                }
+            }
+
+            PageTranslation::findOrFail($id)->update([
                 'title' => $request->title,
                 'slug' => Str::slug($request->title,'-'),
                 'description' => $request->description,
@@ -215,9 +195,7 @@ class PagesController extends Controller
                 return response()->json($response);
             }
 
-            $upd_page_published = DB::table('pages_translations')->where('id', '=', $request->id)->update([
-                'is_published' => $request->value
-            ]);
+            PageTranslation::find($request->id)->update(['is_published' => $request->value]);
 
             $response['status'] = true;
             $obj = trans('entities.page');
@@ -264,7 +242,7 @@ class PagesController extends Controller
 
     public function page($pageSlug)
     {
-        $page = DB::table('pages_translations')->where('slug', '=', $pageSlug)->first();
+        $page = PageTranslation::where('slug', $pageSlug)->firstOrFail();
         return view('pages::show', ['page' => $page]);
     }
 
