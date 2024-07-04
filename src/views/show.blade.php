@@ -1,4 +1,4 @@
-@extends('layouts.app')
+{{-- @extends('layouts.app')
 @section('title', $page->title)
 @section('title_header', $page->title)
 @section('content')
@@ -16,4 +16,78 @@
         </div>
     </div>
 </div>
+@endsection --}}
+
+@extends('layouts/layoutMaster')
+@section('title', $page->title)
+@section('title_header', $page->title)
+
+@section('path', trans('entities.pages'))
+@section('current', $page->title)
+
+
+@section('content')
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-12">
+                <div class="card">
+                    <div class="card-header">
+                        <div id="description">
+                        </div>
+                    </div>
+                    <div class="card-body" id="content">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+@endsection
+
+@section('vendor-style')
+    <link rel="stylesheet" href="{{ asset('assets/vendor/libs/quill/typography.css') }}" />
+    <link rel="stylesheet" href="{{ asset('assets/vendor/libs/quill/katex.css') }}" />
+    <link rel="stylesheet" href="{{ asset('assets/vendor/libs/quill/editor.css') }}" />
+@endsection
+
+@section('page-style')
+    <style>
+        /* Regole CSS per le immagini all'interno dell'editor */
+        p img {
+            max-width: 100%;
+            /* Imposta la larghezza massima dell'immagine al 100% del suo contenitore */
+            height: auto;
+            /* Mantiene il rapporto originale delle dimensioni dell'immagine */
+        }
+    </style>
+@endsection
+
+@section('vendor-script')
+    <script src="{{ asset('assets/vendor/libs/quill/katex.js') }}"></script>
+    <script src="{{ asset('assets/vendor/libs/quill/quill.js') }}"></script>
+@endsection
+
+@section('page-script')
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            //document.getElementById('content').innerHTML = quillJsonToHtml({!! $page->content !!});
+            //document.getElementById('description').innerHTML = quillJsonToHtml({!! $page->description !!});
+
+            function deltaToHtml(deltaOps) {
+                const container = document.createElement('div');
+                const quill = new Quill(container);
+
+                // Imposta il contenuto usando il delta
+                quill.setContents(deltaOps);
+
+                // Restituisce l'HTML
+                return container.querySelector('.ql-editor').innerHTML;
+            }
+
+            const desc = deltaToHtml({!! $page->description !!}.ops);
+            document.getElementById('description').innerHTML = desc;
+
+            const cont = deltaToHtml({!! $page->content !!}.ops);
+            document.getElementById('content').innerHTML = cont;
+        })
+    </script>
 @endsection

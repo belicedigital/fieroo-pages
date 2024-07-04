@@ -1,4 +1,4 @@
-@extends('layouts.app')
+{{-- @extends('layouts.app')
 @section('title', trans('crud.new', ['obj' => trans('entities.page')]))
 @section('title_header', trans('crud.new', ['obj' => trans('entities.page')]))
 @section('buttons')
@@ -122,5 +122,197 @@
             });
             // $('.note-btn-group.btn-group.note-insert').hide()
         });
+    </script>
+@endsection
+ --}}
+
+@extends('layouts/layoutMaster')
+
+@section('title', trans('crud.new', ['obj' => trans('entities.page')]))
+@section('title_header', trans('crud.new', ['obj' => trans('entities.page')]))
+
+@section('path', trans('entities.pages'))
+@section('current', trans('crud.new', ['obj' => trans('entities.page')]))
+
+@section('content')
+    <div class="row">
+        <div class="col">
+            <div class="card mb-4">
+                {{-- <div class="card-header">
+                      <h3 class="card-title mt-1">{{ __('Crea una pagina') }}</h3>
+ 
+                 </div> --}}
+                <div class="card-body">
+                    <ul class="nav nav-pills card-header-tabs mb-2" role="tablist">
+                        <li class="nav-item">
+                            <button class="nav-link active" data-bs-toggle="tab" data-bs-target="#form-tabs-it" role="tab"
+                                aria-selected="true">IT</button>
+                        </li>
+                        <li class="nav-item">
+                            <button class="nav-link " data-bs-toggle="tab" data-bs-target="#form-tabs-en" role="tab"
+                                aria-selected="false">EN</button>
+                        </li>
+                    </ul>
+                    <form id="myForm" action="{{ route('pages.store') }}" method="POST" enctype="multipart/form-data">
+                        @csrf
+                        <div class="tab-content">
+                            <div class="tab-pane fade active show" id="form-tabs-it" role="tabpanel">
+                                <div class="row g-3">
+                                    <div class="col-xs-12 col-sm-12 col-md-12">
+                                        <label class="form-label"
+                                            for="formtabs-title"><strong>{{ trans('tables.title') }}</strong></label>
+                                        <input type="text" name="title" id="formtabs-title" class="form-control"
+                                            value="{{ old('title') }}" />
+                                    </div>
+                                    <div class="col-xs-12 col-sm-12 col-md-12">
+                                        <label class="form-label"><strong>{{ trans('forms.description') }}</strong></label>
+                                        <div id="description-editor">
+                                        </div>
+                                        <textarea name="description" id="description" class="form-control" style="display: none;"></textarea>
+                                    </div>
+                                    <div class="col-xs-12 col-sm-12 col-md-12">
+                                        <label class="form-label"><strong>{{ trans('forms.content') }}</strong></label>
+                                        <div id="content-editor">
+                                        </div>
+                                        <textarea name="content" id="content" class="form-control" style="display: none;"></textarea>
+                                    </div>
+                                    <div class="col-md-6 select2-primary">
+                                        <label class="switch switch-primary switch-sm me-0">
+                                            <span class="switch-label"><strong>{{ trans('forms.publish') }}</strong></span>
+                                            <input name="is_published" id="is_published" class='switch-input'
+                                                type="checkbox">
+                                            <span class="switch-toggle-slider">
+                                                <span class="switch-on"></span>
+                                                <span class="switch-off"></span>
+                                            </span>
+                                        </label>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="tab-pane fade" id="form-tabs-en" role="tabpanel">
+                                <div class="row g-3">
+                                    <div class="col-xs-12 col-sm-12 col-md-12">
+                                        <label class="form-label"
+                                            for="formtabs-title-en"><strong>{{ trans('tables.title') }}</strong></label>
+                                        <input type="text" name="title_en" id="formtabs-title-en" class="form-control"
+                                            value="{{ old('title') }}" />
+                                    </div>
+                                    <div class="col-xs-12 col-sm-12 col-md-12">
+                                        <label class="form-label"><strong>{{ trans('forms.description') }}</strong></label>
+                                        <div id="description_en-editor">
+                                        </div>
+                                        <textarea name="description_en" id="description_en" class="form-control" style="display: none;"></textarea>
+                                    </div>
+                                    <div class="col-xs-12 col-sm-12 col-md-12">
+
+                                        <label class="form-label"><strong>{{ trans('forms.content') }}</strong></label>
+                                        <div id="content_en-editor">
+                                        </div>
+                                        <textarea name="content_en" id="content_en" class="form-control" style="display: none;"></textarea>
+                                    </div>
+                                    <div class="col-md-6 select2-primary">
+                                        <label class="switch switch-primary switch-sm me-0">
+                                            <span class="switch-label"><strong>{{ trans('forms.publish') }}</strong></span>
+                                            <input name="is_published_en" id="is_published_en" class='switch-input'
+                                                type="checkbox">
+                                            <span class="switch-toggle-slider">
+                                                <span class="switch-on"></span>
+                                                <span class="switch-off"></span>
+                                            </span>
+                                        </label>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="pt-4">
+                            <button type="submit" id="create-page"
+                                class="btn btn-primary me-sm-3 me-1">{{ trans('generals.save') }}</button>
+                            <a href="{{ url('admin/pages') }}"
+                                class="btn btn-label-secondary">{{ trans('generals.cancel') }}</a>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+@endsection
+
+@section('vendor-style')
+    <link rel="stylesheet" href="{{ asset('assets/vendor/libs/quill/typography.css') }}" />
+    <link rel="stylesheet" href="{{ asset('assets/vendor/libs/quill/katex.css') }}" />
+    <link rel="stylesheet" href="{{ asset('assets/vendor/libs/quill/editor.css') }}" />
+    <link rel="stylesheet" href="{{ asset('assets/vendor/libs/toastr/toastr.css') }}" />
+@endsection
+
+@section('vendor-script')
+    <script src="{{ asset('assets/vendor/libs/toastr/toastr.js') }}"></script>
+    <script src="{{ asset('assets/vendor/libs/quill/katex.js') }}"></script>
+    <script src="{{ asset('assets/vendor/libs/quill/quill.js') }}"></script>
+@endsection
+
+@section('page-script')
+    <script src="{{ asset('assets/js/text-editor.js') }}"></script>
+    <script>
+        //document.addEventListener('DOMContentLoaded', () => {
+        const titleInput = document.querySelector('input[name="title"]');
+        const titleEnInput = document.querySelector('input[name="title_en"]');
+
+        titleInput.addEventListener('keyup', (e) => {
+            titleEnInput.value = titleInput.value + '_EN';
+        });
+
+        titleInput.addEventListener('change', (e) => {
+            titleEnInput.value = titleInput.value + '_EN';
+        });
+
+        /* const textareas = document.querySelectorAll('textarea');
+     
+             textareas.forEach(textarea => {
+             textarea.addEventListener('keyup', (e) => {
+             const name = textarea.getAttribute('name');
+             const targetTextarea = document.querySelector(`textarea[name="${name}_en"]`);
+             if (targetTextarea) {
+             targetTextarea.value = textarea.value + '_EN';
+             }
+             });
+     
+             textarea.addEventListener('change', (e) => {
+             const name = textarea.getAttribute('name');
+             const targetTextarea = document.querySelector(`textarea[name="${name}_en"]`);
+             if (targetTextarea) {
+             targetTextarea.value = textarea.value + '_EN';
+             }
+             });
+             }); */
+        // });
+
+        // Set editors
+        const editDesc = createFullEditor('#description-editor');
+        const editCont = createFullEditor('#content-editor');
+        const editDescEn = createFullEditor('#description_en-editor');
+        const editContEn = createFullEditor('#content_en-editor');
+
+        // Sincronizzazione del contenuto degli editor di Quill
+        editDesc.on('text-change', () => {
+            const descriptionContent = editDesc.root.innerHTML
+            editDescEn.root.innerHTML = descriptionContent.replace(/(<\/[\w\s="':;]+>)$/, '_EN$1');
+        });
+
+        editCont.on('text-change', () => {
+            const contentContent = editCont.root.innerHTML
+            editContEn.root.innerHTML = contentContent.replace(/(<\/[\w\s="':;]+>)$/, '_EN$1');
+        });
+
+        const form = document.getElementById('myForm');
+        form.addEventListener('submit', () => {
+            const desc = editDesc.getContents();
+            document.getElementById('description').value = JSON.stringify(desc);;
+            const cont = editCont.getContents();
+            document.getElementById('content').value = JSON.stringify(cont);;
+            const descEn = editDescEn.getContents();
+            document.getElementById('description_en').value = JSON.stringify(descEn);;
+            const contEn = editContEn.getContents();
+            document.getElementById('content_en').value = JSON.stringify(contEn);;
+        })
     </script>
 @endsection
