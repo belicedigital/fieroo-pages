@@ -157,11 +157,11 @@
             const fullEditorCont = createFullEditor('#content');
 
             // Inizializza i campi
-            var initDesc = {!! json_encode(old('description', $page->description)) !!};
+            var initDesc = {!! json_encode($page->description) !!};
             var desc = JSON.parse(initDesc);
             fullEditorDesc.setContents(desc);
 
-            var initCont = {!! json_encode(old('content', $page->content)) !!};
+            var initCont = {!! json_encode($page->content) !!};
             var cont = JSON.parse(initCont);
             fullEditorCont.setContents(cont);
 
