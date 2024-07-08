@@ -150,50 +150,29 @@
 @endsection
 
 @section('page-script')
-    <script>
-        function createEditor(id) {
-            const quill = new Quill(id, {
-                modules: {
-                    toolbar: [
-                        [{
-                            header: [1, 2, false]
-                        }],
-                        ['bold', 'italic', 'underline'],
-                    ],
-                },
-                theme: 'snow', // or 'bubble'
-            });
-            return quill;
-        }
-        const editors = document.querySelectorAll('.summernote');
-        const quills = [];
-        editors.forEach(editor => {
-            quills.push(createEditor(editor));
-        });
-    </script>
-    {{-- <script src="{{ asset('assets/js/text-editor.js') }}"></script>
+    <script src="{{ asset('assets/js/text-editor.js') }}"></script>
     <script>
         document.addEventListener('DOMContentLoaded', () => {
-        const fullEditorDesc = createFullEditor('#description-editor');
-        const fullEditorCont = createFullEditor('#content-editor');
+            const fullEditorDesc = createFullEditor('#description');
+            const fullEditorCont = createFullEditor('#content');
 
-        // Inizializza i campi
-        var initDesc = {!! json_encode(old('description', $page->description)) !!};
-        var desc = JSON.parse(initDesc);
-        fullEditorDesc.setContents(desc);
+            // Inizializza i campi
+            var initDesc = {!! json_encode(old('description', $page->description)) !!};
+            var desc = JSON.parse(initDesc);
+            fullEditorDesc.setContents(desc);
 
-        var initCont = {!! json_encode(old('content', $page->content)) !!};
-        var cont = JSON.parse(initCont);
-        fullEditorCont.setContents(cont);
+            var initCont = {!! json_encode(old('content', $page->content)) !!};
+            var cont = JSON.parse(initCont);
+            fullEditorCont.setContents(cont);
 
-        // Aggiorna i campi nascosti con il contenuto degli editor
-        const form = document.getElementById('myForm');
-        form.addEventListener('submit', () => {
-            desc = fullEditorDesc.getContents();
-            document.getElementById('description').value = JSON.stringify(desc);
-            cont = fullEditorCont.getContents();
-            document.getElementById('content').value = JSON.stringify(cont);
+            // Aggiorna i campi nascosti con il contenuto degli editor
+            const form = document.getElementById('myForm');
+            form.addEventListener('submit', () => {
+                desc = fullEditorDesc.getContents();
+                document.getElementById('description').value = JSON.stringify(desc);
+                cont = fullEditorCont.getContents();
+                document.getElementById('content').value = JSON.stringify(cont);
+            });
         });
-        });
-    </script> --}}
+    </script>
 @endsection
