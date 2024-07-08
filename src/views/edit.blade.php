@@ -102,12 +102,12 @@
                             </div>
                             <div class="col-xs-12 col-sm-12 col-md-12">
                                 <label class="form-label fs-6 fw-bolder">{{ trans('forms.description') }}</label>
-                                <div name="description">{!! $page->description !!}</div>
+                                <div id="descrption" name="description" class="summernote">{!! $page->description !!}</div>
                                 {{-- <textarea name="description" id="description" class="form-control" style="display: none;"></textarea> --}}
                             </div>
                             <div class="col-xs-12 col-sm-12 col-md-12">
                                 <label class="form-label fs-6 fw-bolder">{{ trans('forms.content') }}</label>
-                                <div name="content">{!! $page->content !!}</div>
+                                <div id="content" name="content" class="summernote">{!! $page->content !!}</div>
                                 {{-- <textarea name="content" id="content" class="form-control" style="display: none;"></textarea> --}}
                             </div>
                             <div class="col-md-6 select2-primary">
@@ -150,9 +150,30 @@
 @endsection
 
 @section('page-script')
-    <script src="{{ asset('assets/js/text-editor.js') }}"></script>
     <script>
-        // document.addEventListener('DOMContentLoaded', () => {
+        function createEditor(id) {
+            const quill = new Quill(id, {
+                modules: {
+                    toolbar: [
+                        [{
+                            header: [1, 2, false]
+                        }],
+                        ['bold', 'italic', 'underline'],
+                    ],
+                },
+                theme: 'snow', // or 'bubble'
+            });
+            return quill;
+        }
+        const editors = document.querySelectorAll('.summernote');
+        const quills = [];
+        editors.forEach(editor => {
+            quills.push(createEditor(editor));
+        });
+    </script>
+    {{-- <script src="{{ asset('assets/js/text-editor.js') }}"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
         const fullEditorDesc = createFullEditor('#description-editor');
         const fullEditorCont = createFullEditor('#content-editor');
 
@@ -173,6 +194,6 @@
             cont = fullEditorCont.getContents();
             document.getElementById('content').value = JSON.stringify(cont);
         });
-        // });
-    </script>
+        });
+    </script> --}}
 @endsection
