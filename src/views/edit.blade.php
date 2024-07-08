@@ -102,12 +102,12 @@
                             </div>
                             <div class="col-xs-12 col-sm-12 col-md-12">
                                 <label class="form-label fs-6 fw-bolder">{{ trans('forms.description') }}</label>
-                                <div id="descrption" name="description" class="summernote">{!! $page->description !!}</div>
+                                <div id="description" name="description">{!! $page->description !!}</div>
                                 {{-- <textarea name="description" id="description" class="form-control" style="display: none;"></textarea> --}}
                             </div>
                             <div class="col-xs-12 col-sm-12 col-md-12">
                                 <label class="form-label fs-6 fw-bolder">{{ trans('forms.content') }}</label>
-                                <div id="content" name="content" class="summernote">{!! $page->content !!}</div>
+                                <div id="content" name="content">{!! $page->content !!}</div>
                                 {{-- <textarea name="content" id="content" class="form-control" style="display: none;"></textarea> --}}
                             </div>
                             <div class="col-md-6 select2-primary">
