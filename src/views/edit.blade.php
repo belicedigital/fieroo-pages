@@ -102,13 +102,13 @@
                             </div>
                             <div class="col-xs-12 col-sm-12 col-md-12">
                                 <label class="form-label fs-6 fw-bolder">{{ trans('forms.description') }}</label>
-                                <div id="description-editor"></div>
-                                <textarea name="description" id="description" class="form-control" style="display: none;"></textarea>
+                                <div name="description">{!! $page->description !!}</div>
+                                {{-- <textarea name="description" id="description" class="form-control" style="display: none;"></textarea> --}}
                             </div>
                             <div class="col-xs-12 col-sm-12 col-md-12">
                                 <label class="form-label fs-6 fw-bolder">{{ trans('forms.content') }}</label>
-                                <div id="content-editor"></div>
-                                <textarea name="content" id="content" class="form-control" style="display: none;"></textarea>
+                                <div name="content">{!! $page->content !!}</div>
+                                {{-- <textarea name="content" id="content" class="form-control" style="display: none;"></textarea> --}}
                             </div>
                             <div class="col-md-6 select2-primary">
                                 <label class="switch switch-primary switch-sm me-0">
@@ -152,27 +152,27 @@
 @section('page-script')
     <script src="{{ asset('assets/js/text-editor.js') }}"></script>
     <script>
-        document.addEventListener('DOMContentLoaded', () => {
-            const fullEditorDesc = createFullEditor('#description-editor');
-            const fullEditorCont = createFullEditor('#content-editor');
+        // document.addEventListener('DOMContentLoaded', () => {
+        const fullEditorDesc = createFullEditor('#description-editor');
+        const fullEditorCont = createFullEditor('#content-editor');
 
-            // Inizializza i campi
-            var initDesc = {!! json_encode(old('description', $page->description)) !!};
-            var desc = JSON.parse(initDesc);
-            fullEditorDesc.setContents(desc);
+        // Inizializza i campi
+        var initDesc = {!! json_encode(old('description', $page->description)) !!};
+        var desc = JSON.parse(initDesc);
+        fullEditorDesc.setContents(desc);
 
-            var initCont = {!! json_encode(old('content', $page->content)) !!};
-            var cont = JSON.parse(initCont);
-            fullEditorCont.setContents(cont);
+        var initCont = {!! json_encode(old('content', $page->content)) !!};
+        var cont = JSON.parse(initCont);
+        fullEditorCont.setContents(cont);
 
-            // Aggiorna i campi nascosti con il contenuto degli editor
-            const form = document.getElementById('myForm');
-            form.addEventListener('submit', () => {
-                desc = fullEditorDesc.getContents();
-                document.getElementById('description').value = JSON.stringify(desc);
-                cont = fullEditorCont.getContents();
-                document.getElementById('content').value = JSON.stringify(cont);
-            });
+        // Aggiorna i campi nascosti con il contenuto degli editor
+        const form = document.getElementById('myForm');
+        form.addEventListener('submit', () => {
+            desc = fullEditorDesc.getContents();
+            document.getElementById('description').value = JSON.stringify(desc);
+            cont = fullEditorCont.getContents();
+            document.getElementById('content').value = JSON.stringify(cont);
         });
+        // });
     </script>
 @endsection
