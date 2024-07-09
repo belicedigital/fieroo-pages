@@ -167,11 +167,11 @@
             });
         });
 
-        let oldValue = {!! json_encode($settings->description) !!};
+        let oldValue = {!! json_encode($page->description) !!};
         oldValue = JSON.parse(oldValue);
         quills[0].setContents(oldValue);
 
-        oldValue = {!! json_encode($settings->content) !!};
+        oldValue = {!! json_encode($page->content) !!};
         oldValue = JSON.parse(oldValue);
         quills[1].setContents(oldValue);
 
