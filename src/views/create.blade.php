@@ -242,14 +242,7 @@
     <script src="{{ asset('assets/js/text-editor.js') }}"></script>
     <script>
         const editors = document.querySelectorAll('.quillEditor');
-        initEditors(editors, 'myForm', {}, {
-            input: 'title',
-            textarea: ['description', 'content'],
-        })
-        // autoCompileTrans({
-        //     input: 'title',
-        //     textarea: ['description', 'content'],
-        // })
+        initEditors(editors, 'myForm')
 
         //document.addEventListener('DOMContentLoaded', () => {
         // const titleInput = document.querySelector('input[name="title"]');
