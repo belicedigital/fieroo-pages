@@ -154,10 +154,5 @@
             description: {!! json_encode($page->description) !!},
             content: {!! json_encode($page->content) !!},
         })
-
-        // initEditorContents({
-        //     description: {!! json_encode($page->description) !!},
-        //     content: {!! json_encode($page->content) !!},
-        // })
     </script>
 @endsection

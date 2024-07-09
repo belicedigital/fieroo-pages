@@ -242,7 +242,10 @@
     <script src="{{ asset('assets/js/text-editor.js') }}"></script>
     <script>
         const editors = document.querySelectorAll('.quillEditor');
-        initEditors(editors, 'myForm')
+        initEditors(editors, 'myForm', false, {
+            input: 'title',
+            textarea: ['description', 'content'],
+        })
 
         //document.addEventListener('DOMContentLoaded', () => {
         // const titleInput = document.querySelector('input[name="title"]');
@@ -284,26 +287,26 @@
         // const editContEn = createFullEditor('#content_en-editor');
 
         // Sincronizzazione del contenuto degli editor di Quill
-        editDesc.on('text-change', () => {
-            const descriptionContent = editDesc.root.innerHTML
-            editDescEn.root.innerHTML = descriptionContent.replace(/(<\/[\w\s="':;]+>)$/, '_EN$1');
-        });
+        // editDesc.on('text-change', () => {
+        //     const descriptionContent = editDesc.root.innerHTML
+        //     editDescEn.root.innerHTML = descriptionContent.replace(/(<\/[\w\s="':;]+>)$/, '_EN$1');
+        // });
 
-        editCont.on('text-change', () => {
-            const contentContent = editCont.root.innerHTML
-            editContEn.root.innerHTML = contentContent.replace(/(<\/[\w\s="':;]+>)$/, '_EN$1');
-        });
+        // editCont.on('text-change', () => {
+        //     const contentContent = editCont.root.innerHTML
+        //     editContEn.root.innerHTML = contentContent.replace(/(<\/[\w\s="':;]+>)$/, '_EN$1');
+        // });
 
-        const form = document.getElementById('myForm');
-        form.addEventListener('submit', () => {
-            const desc = editDesc.getContents();
-            document.getElementById('description').value = JSON.stringify(desc);;
-            const cont = editCont.getContents();
-            document.getElementById('content').value = JSON.stringify(cont);;
-            const descEn = editDescEn.getContents();
-            document.getElementById('description_en').value = JSON.stringify(descEn);;
-            const contEn = editContEn.getContents();
-            document.getElementById('content_en').value = JSON.stringify(contEn);;
-        })
+        // const form = document.getElementById('myForm');
+        // form.addEventListener('submit', () => {
+        //     const desc = editDesc.getContents();
+        //     document.getElementById('description').value = JSON.stringify(desc);;
+        //     const cont = editCont.getContents();
+        //     document.getElementById('content').value = JSON.stringify(cont);;
+        //     const descEn = editDescEn.getContents();
+        //     document.getElementById('description_en').value = JSON.stringify(descEn);;
+        //     const contEn = editContEn.getContents();
+        //     document.getElementById('content_en').value = JSON.stringify(contEn);;
+        // })
     </script>
 @endsection
