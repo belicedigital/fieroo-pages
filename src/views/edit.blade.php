@@ -95,9 +95,8 @@
                         @csrf
                         <div class="row g-3">
                             <div class="col-xs-12 col-sm-12 col-md-12">
-                                <label class="form-label fs-6 fw-bolder"
-                                    for="formtabs-title">{{ trans('tables.title') }}</label>
-                                <input type="text" name="title" id="formtabs-title" class="form-control"
+                                <label class="form-label fs-6 fw-bolder" for="title">{{ trans('tables.title') }}</label>
+                                <input type="text" name="title" id="title" class="form-control"
                                     value="{{ $page->title }}" />
                             </div>
                             <div class="col-xs-12 col-sm-12 col-md-12">
@@ -151,11 +150,14 @@
     <script src="{{ asset('assets/js/text-editor.js') }}"></script>
     <script>
         const editors = document.querySelectorAll('.quillEditor');
-        initEditors(editors, 'myForm')
-
-        initEditorContents({
+        initEditors(editors, 'myForm', {
             description: {!! json_encode($page->description) !!},
             content: {!! json_encode($page->content) !!},
         })
+
+        // initEditorContents({
+        //     description: {!! json_encode($page->description) !!},
+        //     content: {!! json_encode($page->content) !!},
+        // })
     </script>
 @endsection

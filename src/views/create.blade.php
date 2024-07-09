@@ -138,10 +138,6 @@
     <div class="row">
         <div class="col">
             <div class="card mb-4">
-                {{-- <div class="card-header">
-                      <h3 class="card-title mt-1">{{ __('Crea una pagina') }}</h3>
- 
-                 </div> --}}
                 <div class="card-body">
                     <ul class="nav nav-pills card-header-tabs mb-2" role="tablist">
                         <li class="nav-item">
@@ -160,21 +156,17 @@
                                 <div class="row g-3">
                                     <div class="col-xs-12 col-sm-12 col-md-12">
                                         <label class="form-label"
-                                            for="formtabs-title"><strong>{{ trans('tables.title') }}</strong></label>
-                                        <input type="text" name="title" id="formtabs-title" class="form-control"
+                                            for="title"><strong>{{ trans('tables.title') }}</strong></label>
+                                        <input type="text" name="title" id="title" class="form-control"
                                             value="{{ old('title') }}" />
                                     </div>
                                     <div class="col-xs-12 col-sm-12 col-md-12">
                                         <label class="form-label"><strong>{{ trans('forms.description') }}</strong></label>
-                                        <div id="description-editor">
-                                        </div>
-                                        <textarea name="description" id="description" class="form-control" style="display: none;"></textarea>
+                                        <div id="description" name="description" class="quillEditor"></div>
                                     </div>
                                     <div class="col-xs-12 col-sm-12 col-md-12">
                                         <label class="form-label"><strong>{{ trans('forms.content') }}</strong></label>
-                                        <div id="content-editor">
-                                        </div>
-                                        <textarea name="content" id="content" class="form-control" style="display: none;"></textarea>
+                                        <div id="content" name="content" class="quillEditor"></div>
                                     </div>
                                     <div class="col-md-6 select2-primary">
                                         <label class="switch switch-primary switch-sm me-0">
@@ -193,22 +185,18 @@
                                 <div class="row g-3">
                                     <div class="col-xs-12 col-sm-12 col-md-12">
                                         <label class="form-label"
-                                            for="formtabs-title-en"><strong>{{ trans('tables.title') }}</strong></label>
-                                        <input type="text" name="title_en" id="formtabs-title-en" class="form-control"
-                                            value="{{ old('title') }}" />
+                                            for="title_en"><strong>{{ trans('tables.title') }}</strong></label>
+                                        <input type="text" name="title_en" id="title_en" class="form-control"
+                                            value="{{ old('title_en') }}" />
                                     </div>
                                     <div class="col-xs-12 col-sm-12 col-md-12">
                                         <label class="form-label"><strong>{{ trans('forms.description') }}</strong></label>
-                                        <div id="description_en-editor">
-                                        </div>
-                                        <textarea name="description_en" id="description_en" class="form-control" style="display: none;"></textarea>
+                                        <div id="description_en" name="description_en" class="quillEditor"></div>
                                     </div>
                                     <div class="col-xs-12 col-sm-12 col-md-12">
 
                                         <label class="form-label"><strong>{{ trans('forms.content') }}</strong></label>
-                                        <div id="content_en-editor">
-                                        </div>
-                                        <textarea name="content_en" id="content_en" class="form-control" style="display: none;"></textarea>
+                                        <div id="content_en" name="content_en" class="quillEditor"></div>
                                     </div>
                                     <div class="col-md-6 select2-primary">
                                         <label class="switch switch-primary switch-sm me-0">
@@ -253,44 +241,54 @@
 @section('page-script')
     <script src="{{ asset('assets/js/text-editor.js') }}"></script>
     <script>
+        const editors = document.querySelectorAll('.quillEditor');
+        initEditors(editors, 'myForm', {}, {
+            input: 'title',
+            textarea: ['description', 'content'],
+        })
+        // autoCompileTrans({
+        //     input: 'title',
+        //     textarea: ['description', 'content'],
+        // })
+
         //document.addEventListener('DOMContentLoaded', () => {
-        const titleInput = document.querySelector('input[name="title"]');
-        const titleEnInput = document.querySelector('input[name="title_en"]');
+        // const titleInput = document.querySelector('input[name="title"]');
+        // const titleEnInput = document.querySelector('input[name="title_en"]');
 
-        titleInput.addEventListener('keyup', (e) => {
-            titleEnInput.value = titleInput.value + '_EN';
-        });
+        // titleInput.addEventListener('keyup', (e) => {
+        //     titleEnInput.value = titleInput.value + '_EN';
+        // });
 
-        titleInput.addEventListener('change', (e) => {
-            titleEnInput.value = titleInput.value + '_EN';
-        });
+        // titleInput.addEventListener('change', (e) => {
+        //     titleEnInput.value = titleInput.value + '_EN';
+        // });
 
         /* const textareas = document.querySelectorAll('textarea');
-     
-             textareas.forEach(textarea => {
-             textarea.addEventListener('keyup', (e) => {
-             const name = textarea.getAttribute('name');
-             const targetTextarea = document.querySelector(`textarea[name="${name}_en"]`);
-             if (targetTextarea) {
-             targetTextarea.value = textarea.value + '_EN';
-             }
-             });
-     
-             textarea.addEventListener('change', (e) => {
-             const name = textarea.getAttribute('name');
-             const targetTextarea = document.querySelector(`textarea[name="${name}_en"]`);
-             if (targetTextarea) {
-             targetTextarea.value = textarea.value + '_EN';
-             }
-             });
-             }); */
+         
+                 textareas.forEach(textarea => {
+                 textarea.addEventListener('keyup', (e) => {
+                 const name = textarea.getAttribute('name');
+                 const targetTextarea = document.querySelector(`textarea[name="${name}_en"]`);
+                 if (targetTextarea) {
+                 targetTextarea.value = textarea.value + '_EN';
+                 }
+                 });
+         
+                 textarea.addEventListener('change', (e) => {
+                 const name = textarea.getAttribute('name');
+                 const targetTextarea = document.querySelector(`textarea[name="${name}_en"]`);
+                 if (targetTextarea) {
+                 targetTextarea.value = textarea.value + '_EN';
+                 }
+                 });
+                 }); */
         // });
 
         // Set editors
-        const editDesc = createFullEditor('#description-editor');
-        const editCont = createFullEditor('#content-editor');
-        const editDescEn = createFullEditor('#description_en-editor');
-        const editContEn = createFullEditor('#content_en-editor');
+        // const editDesc = createFullEditor('#description-editor');
+        // const editCont = createFullEditor('#content-editor');
+        // const editDescEn = createFullEditor('#description_en-editor');
+        // const editContEn = createFullEditor('#content_en-editor');
 
         // Sincronizzazione del contenuto degli editor di Quill
         editDesc.on('text-change', () => {
