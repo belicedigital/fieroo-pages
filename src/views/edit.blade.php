@@ -102,13 +102,11 @@
                             </div>
                             <div class="col-xs-12 col-sm-12 col-md-12">
                                 <label class="form-label fs-6 fw-bolder">{{ trans('forms.description') }}</label>
-                                <div id="description" name="description">{!! $page->description !!}</div>
-                                {{-- <textarea name="description" id="description" class="form-control" style="display: none;"></textarea> --}}
+                                <div id="description" name="description" class="summernote">{!! $page->description !!}</div>
                             </div>
                             <div class="col-xs-12 col-sm-12 col-md-12">
                                 <label class="form-label fs-6 fw-bolder">{{ trans('forms.content') }}</label>
-                                <div id="content" name="content">{!! $page->content !!}</div>
-                                {{-- <textarea name="content" id="content" class="form-control" style="display: none;"></textarea> --}}
+                                <div id="content" name="content" class="summernote">{!! $page->content !!}</div>
                             </div>
                             <div class="col-md-6 select2-primary">
                                 <label class="switch switch-primary switch-sm me-0">
@@ -152,27 +150,56 @@
 @section('page-script')
     <script src="{{ asset('assets/js/text-editor.js') }}"></script>
     <script>
-        document.addEventListener('DOMContentLoaded', () => {
-            const fullEditorDesc = createFullEditor('#description');
-            const fullEditorCont = createFullEditor('#content');
-
-            // Inizializza i campi
-            var initDesc = {!! json_encode($page->description) !!};
-            var desc = JSON.parse(initDesc);
-            fullEditorDesc.setContents(desc);
-
-            var initCont = {!! json_encode($page->content) !!};
-            var cont = JSON.parse(initCont);
-            fullEditorCont.setContents(cont);
-
-            // Aggiorna i campi nascosti con il contenuto degli editor
-            const form = document.getElementById('myForm');
-            form.addEventListener('submit', () => {
-                desc = fullEditorDesc.getContents();
-                document.getElementById('description').value = JSON.stringify(desc);
-                cont = fullEditorCont.getContents();
-                document.getElementById('content').value = JSON.stringify(cont);
+        // document.addEventListener('DOMContentLoaded', () => {
+        const editors = document.querySelectorAll('.summernote');
+        const quills = [];
+        editors.forEach(editor => {
+            quills.push(createFullEditor(editor));
+        });
+        // const fullEditorDesc = createFullEditor('#description');
+        // const fullEditorCont = createFullEditor('#content');
+        // send quill data to textarea
+        const form = document.getElementById('myForm');
+        form.addEventListener('formdata', (event) => {
+            quills.forEach((quill, i) => {
+                event.formData.append(editors[i].getAttribute('name'), JSON.stringify(quill
+                    .getContents()));
             });
         });
+
+        let oldValue = {!! json_encode($settings->description) !!};
+        oldValue = JSON.parse(oldValue);
+        quills[0].setContents(oldValue);
+
+        oldValue = {!! json_encode($settings->content) !!};
+        oldValue = JSON.parse(oldValue);
+        quills[1].setContents(oldValue);
+
+
+        // // Inizializza i campi
+        // var initDesc = {!! json_encode($page->description) !!};
+        // var desc = JSON.parse(initDesc);
+        // fullEditorDesc.setContents(desc);
+
+        // var initCont = {!! json_encode($page->content) !!};
+        // var cont = JSON.parse(initCont);
+        // fullEditorCont.setContents(cont);
+
+        // // Aggiorna i campi nascosti con il contenuto degli editor
+        // const form = document.getElementById('myForm');
+        // form.addEventListener('submit', () => {
+        //     desc = fullEditorDesc.getContents();
+        //     document.getElementById('description').value = JSON.stringify(desc);
+        //     cont = fullEditorCont.getContents();
+        //     document.getElementById('content').value = JSON.stringify(cont);
+        // });
+        // form.addEventListener('formdata', (event) => {
+
+        //     quills.forEach((quill, i) => {
+        //         event.formData.append(.getAttribute('name'), JSON.stringify(quill
+        //             .getContents()));
+        //     });
+        // });
+        // });
     </script>
 @endsection
