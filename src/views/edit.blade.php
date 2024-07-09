@@ -155,7 +155,7 @@
 
         initEditorContents({
             description: {!! json_encode($page->description) !!},
-            consent: {!! json_encode($page->content) !!},
+            content: {!! json_encode($page->content) !!},
         })
 
         // const quills = [];
