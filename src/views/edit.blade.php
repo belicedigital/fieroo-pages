@@ -157,25 +157,5 @@
             description: {!! json_encode($page->description) !!},
             content: {!! json_encode($page->content) !!},
         })
-
-        // const quills = [];
-        // editors.forEach(editor => {
-        //     quills.push(createFullEditor(editor));
-        // });
-        // const form = document.getElementById('myForm');
-        // form.addEventListener('formdata', (event) => {
-        //     quills.forEach((quill, i) => {
-        //         event.formData.append(editors[i].getAttribute('name'), JSON.stringify(quill
-        //             .getContents()));
-        //     });
-        // });
-
-        // let oldValue = {!! json_encode($page->description) !!};
-        // oldValue = JSON.parse(oldValue);
-        // quills[0].setContents(oldValue);
-
-        // oldValue = {!! json_encode($page->content) !!};
-        // oldValue = JSON.parse(oldValue);
-        // quills[1].setContents(oldValue);
     </script>
 @endsection
