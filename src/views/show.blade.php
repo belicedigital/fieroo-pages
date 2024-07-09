@@ -32,7 +32,6 @@
             <div class="col-12">
                 <div class="card">
                     <div class="card-header">
-                        <h5 class="card-title">{{ $page->description }}</h5>
                         <div id="description">
                         </div>
                     </div>
@@ -68,27 +67,11 @@
 @endsection
 
 @section('page-script')
+    <script src="{{ asset('assets/js/text-editor.js') }}"></script>
     <script>
-        // document.addEventListener('DOMContentLoaded', function() {
-        //document.getElementById('content').innerHTML = quillJsonToHtml({!! $page->content !!});
-        //document.getElementById('description').innerHTML = quillJsonToHtml({!! $page->description !!});
-
-        function deltaToHtml(deltaOps) {
-            const container = document.createElement('div');
-            const quill = new Quill(container);
-
-            // Imposta il contenuto usando il delta
-            quill.setContents(deltaOps);
-
-            // Restituisce l'HTML
-            return container.querySelector('.ql-editor').innerHTML;
-        }
-
-        const desc = deltaToHtml({!! $page->description !!}.ops);
-        document.getElementById('description').innerHTML = desc;
-
-        const cont = deltaToHtml({!! $page->content !!}.ops);
-        document.getElementById('content').innerHTML = cont;
-        // })
+        readHTMLQuill({
+            description: {!! $page->description !!}.ops,
+            content: {!! $page->content !!}.ops,
+        })
     </script>
 @endsection
