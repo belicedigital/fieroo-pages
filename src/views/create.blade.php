@@ -131,6 +131,11 @@
 @section('title', trans('crud.new', ['obj' => trans('entities.page')]))
 @section('title_header', trans('crud.new', ['obj' => trans('entities.page')]))
 
+@section('button')
+    <a href="{{ url('admin/pages') }}" class="btn btn-primary" data-bs-toggle="tooltip" data-bs-placement="bottom"
+        data-bs-original-title="{{ trans('generals.back') }}"><i class="fas fa-chevron-left"></i></a>
+@endsection
+
 @section('path', trans('entities.pages'))
 @section('current', trans('crud.new', ['obj' => trans('entities.page')]))
 
@@ -141,8 +146,8 @@
                 <div class="card-body">
                     <ul class="nav nav-pills card-header-tabs mb-2" role="tablist">
                         <li class="nav-item">
-                            <button class="nav-link active" data-bs-toggle="tab" data-bs-target="#form-tabs-it" role="tab"
-                                aria-selected="true">IT</button>
+                            <button class="nav-link active" data-bs-toggle="tab" data-bs-target="#form-tabs-it"
+                                role="tab" aria-selected="true">IT</button>
                         </li>
                         <li class="nav-item">
                             <button class="nav-link " data-bs-toggle="tab" data-bs-target="#form-tabs-en" role="tab"
@@ -215,8 +220,6 @@
                         <div class="pt-4">
                             <button type="submit" id="create-page"
                                 class="btn btn-primary me-sm-3 me-1">{{ trans('generals.save') }}</button>
-                            <a href="{{ url('admin/pages') }}"
-                                class="btn btn-label-secondary">{{ trans('generals.cancel') }}</a>
                         </div>
                     </form>
                 </div>

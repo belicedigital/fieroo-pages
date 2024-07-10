@@ -75,9 +75,9 @@
 @extends('layouts/layoutMaster')
 @section('title', trans('crud.edit', ['item' => $page->title]))
 @section('title_header', trans('crud.edit', ['item' => $page->title]))
-@section('buttons')
-    <a href="{{ url('admin/pages') }}" class="btn btn-primary" data-toggle="tooltip" data-placement="bottom"
-        title="{{ trans('generals.back') }}"><i class="fas fa-chevron-left"></i></a>
+@section('button')
+    <a href="{{ url('admin/pages') }}" class="btn btn-primary" data-bs-toggle="tooltip" data-bs-placement="bottom"
+        data-bs-original-title="{{ trans('generals.back') }}"><i class="fas fa-chevron-left"></i></a>
 @endsection
 
 @section('path', trans('entities.pages'))
@@ -122,11 +122,8 @@
                         <div class="pt-4">
                             <button type="submit"
                                 class="btn btn-primary me-sm-3 me-1">{{ trans('generals.save') }}</button>
-                            <a href="{{ url('admin/pages') }}"
-                                class="btn btn-label-secondary">{{ trans('generals.cancel') }}</a>
                         </div>
                     </form>
-
                 </div>
             </div>
         </div>

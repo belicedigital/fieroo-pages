@@ -167,6 +167,10 @@
 
 @section('title', trans('entities.pages'))
 @section('title_header', trans('entities.pages'))
+@section('button')
+    <a href="{{ url('admin/pages/create') }}" class="btn btn-primary" data-bs-toggle="tooltip" data-bs-placement="bottom"
+        data-bs-original-title="{{ trans('generals.add') }}"><i class="fas fa-plus"></i></a>
+@endsection
 @section('path', trans('entities.pages'))
 
 @section('content')
@@ -190,13 +194,13 @@
                         {{-- <div class="head-label text-center">
                                <h3 class="card-title mb-0">{{ __('Pagine') }}</h3>
                            </div> --}}
-                        <div class="dt-action-buttons text-end pt-3 pt-md-0">
+                        {{-- <div class="dt-action-buttons text-end pt-3 pt-md-0">
                             <a href="{{ url('admin/pages/create') }}"
                                 class="btn btn-secondary create-new btn-primary waves-effect waves-light"
                                 data-toggle="tooltip" data-placement="bottom"><span><i class="ti ti-plus me-sm-1"></i>
                                     <span class="d-none d-sm-inline-block">{{ trans('generals.add') }}</span>
                                 </span></a>
-                        </div>
+                        </div> --}}
                     </div>
                     <div class="tab-content">
                         <div class="tab-pane fade show active" id="it-pages-tab" role="tabpanel">
