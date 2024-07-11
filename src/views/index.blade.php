@@ -197,7 +197,7 @@
                         {{-- <div class="dt-action-buttons text-end pt-3 pt-md-0">
                             <a href="{{ url('admin/pages/create') }}"
                                 class="btn btn-secondary create-new btn-primary waves-effect waves-light"
-                                data-toggle="tooltip" data-placement="bottom"><span><i class="ti ti-plus me-sm-1"></i>
+                                data-toggle="tooltip" data-placement="bottom"><span><i class="fas fa-plus"></i>
                                     <span class="d-none d-sm-inline-block">{{ trans('generals.add') }}</span>
                                 </span></a>
                         </div> --}}
