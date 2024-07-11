@@ -27,16 +27,14 @@
 
 
 @section('content')
-    <div class="container-fluid">
-        <div class="row">
-            <div class="col-12">
-                <div class="card">
-                    <div class="card-header">
-                        <div id="description">
-                        </div>
+    <div class="row">
+        <div class="col-12">
+            <div class="card">
+                <div class="card-header">
+                    <div id="description">
                     </div>
-                    <div class="card-body" id="content">
-                    </div>
+                </div>
+                <div class="card-body" id="content">
                 </div>
             </div>
         </div>
