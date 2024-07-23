@@ -31,10 +31,13 @@
         <div class="col-12">
             <div class="card">
                 <div class="card-header">
-                    <div id="description">
-                    </div>
+                    {{-- <div id="description"> --}}
+                    {!! $page->description !!}
+                    {{-- </div> --}}
                 </div>
-                <div class="card-body" id="content">
+                {{-- <div class="card-body" id="content"> --}}
+                <div class="card-body">
+                    {!! $page->content !!}
                 </div>
             </div>
         </div>
@@ -64,7 +67,7 @@
     <script src="{{ asset('assets/vendor/libs/quill/quill.js') }}"></script>
 @endsection
 
-@section('page-script')
+{{-- @section('page-script')
     <script src="{{ asset('assets/js/text-editor.js') }}"></script>
     <script>
         readHTMLQuill({
@@ -72,4 +75,4 @@
             content: {!! $page->content !!},
         })
     </script>
-@endsection
+@endsection --}}
