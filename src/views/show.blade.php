@@ -68,8 +68,8 @@
     <script src="{{ asset('assets/js/text-editor.js') }}"></script>
     <script>
         readHTMLQuill({
-            description: {!! $page->description !!}.ops,
-            content: {!! $page->content !!}.ops,
+            description: {!! $page->description !!},
+            content: {!! $page->content !!},
         })
     </script>
 @endsection
