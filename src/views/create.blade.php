@@ -167,7 +167,9 @@
                                     </div>
                                     <div class="col-xs-12 col-sm-12 col-md-12">
                                         <label class="form-label"><strong>{{ trans('forms.description') }}</strong></label>
-                                        <div id="description" name="description" class="quillEditor"></div>
+                                        {{-- <div id="description" name="description" class="quillEditor"></div> --}}
+                                        <input type="text" name="description" id="description" class="form-control"
+                                            value="{{ old('description') }}" />
                                     </div>
                                     <div class="col-xs-12 col-sm-12 col-md-12">
                                         <label class="form-label"><strong>{{ trans('forms.content') }}</strong></label>
@@ -196,7 +198,9 @@
                                     </div>
                                     <div class="col-xs-12 col-sm-12 col-md-12">
                                         <label class="form-label"><strong>{{ trans('forms.description') }}</strong></label>
-                                        <div id="description_en" name="description_en" class="quillEditor"></div>
+                                        <input type="text" name="description_en" id="description_en" class="form-control"
+                                            value="{{ old('description_en') }}" />
+                                        {{-- <div id="description_en" name="description_en" class="quillEditor"></div> --}}
                                     </div>
                                     <div class="col-xs-12 col-sm-12 col-md-12">
 
@@ -247,69 +251,7 @@
         const editors = document.querySelectorAll('.quillEditor');
         initEditors(editors, 'myForm', false, {
             input: 'title',
-            textarea: ['description', 'content'],
+            textarea: ['content'],
         })
-
-        //document.addEventListener('DOMContentLoaded', () => {
-        // const titleInput = document.querySelector('input[name="title"]');
-        // const titleEnInput = document.querySelector('input[name="title_en"]');
-
-        // titleInput.addEventListener('keyup', (e) => {
-        //     titleEnInput.value = titleInput.value + '_EN';
-        // });
-
-        // titleInput.addEventListener('change', (e) => {
-        //     titleEnInput.value = titleInput.value + '_EN';
-        // });
-
-        /* const textareas = document.querySelectorAll('textarea');
-         
-                 textareas.forEach(textarea => {
-                 textarea.addEventListener('keyup', (e) => {
-                 const name = textarea.getAttribute('name');
-                 const targetTextarea = document.querySelector(`textarea[name="${name}_en"]`);
-                 if (targetTextarea) {
-                 targetTextarea.value = textarea.value + '_EN';
-                 }
-                 });
-         
-                 textarea.addEventListener('change', (e) => {
-                 const name = textarea.getAttribute('name');
-                 const targetTextarea = document.querySelector(`textarea[name="${name}_en"]`);
-                 if (targetTextarea) {
-                 targetTextarea.value = textarea.value + '_EN';
-                 }
-                 });
-                 }); */
-        // });
-
-        // Set editors
-        // const editDesc = createFullEditor('#description-editor');
-        // const editCont = createFullEditor('#content-editor');
-        // const editDescEn = createFullEditor('#description_en-editor');
-        // const editContEn = createFullEditor('#content_en-editor');
-
-        // Sincronizzazione del contenuto degli editor di Quill
-        // editDesc.on('text-change', () => {
-        //     const descriptionContent = editDesc.root.innerHTML
-        //     editDescEn.root.innerHTML = descriptionContent.replace(/(<\/[\w\s="':;]+>)$/, '_EN$1');
-        // });
-
-        // editCont.on('text-change', () => {
-        //     const contentContent = editCont.root.innerHTML
-        //     editContEn.root.innerHTML = contentContent.replace(/(<\/[\w\s="':;]+>)$/, '_EN$1');
-        // });
-
-        // const form = document.getElementById('myForm');
-        // form.addEventListener('submit', () => {
-        //     const desc = editDesc.getContents();
-        //     document.getElementById('description').value = JSON.stringify(desc);;
-        //     const cont = editCont.getContents();
-        //     document.getElementById('content').value = JSON.stringify(cont);;
-        //     const descEn = editDescEn.getContents();
-        //     document.getElementById('description_en').value = JSON.stringify(descEn);;
-        //     const contEn = editContEn.getContents();
-        //     document.getElementById('content_en').value = JSON.stringify(contEn);;
-        // })
     </script>
 @endsection

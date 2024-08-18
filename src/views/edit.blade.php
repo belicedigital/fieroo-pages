@@ -101,7 +101,9 @@
                             </div>
                             <div class="col-xs-12 col-sm-12 col-md-12">
                                 <label class="form-label fs-6 fw-bolder">{{ trans('forms.description') }}</label>
-                                <div id="description" name="description" class="quillEditor">{!! $page->description !!}</div>
+                                <input type="text" name="description" id="description" class="form-control"
+                                    value="{{ $page->description }}" />
+                                {{-- <div id="description" name="description" class="quillEditor">{!! $page->description !!}</div> --}}
                             </div>
                             <div class="col-xs-12 col-sm-12 col-md-12">
                                 <label class="form-label fs-6 fw-bolder">{{ trans('forms.content') }}</label>
@@ -148,7 +150,6 @@
     <script>
         const editors = document.querySelectorAll('.quillEditor');
         initEditors(editors, 'myForm', {
-            description: {!! json_encode($page->description) !!},
             content: {!! json_encode($page->content) !!},
         })
     </script>
